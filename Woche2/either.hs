@@ -21,8 +21,8 @@ instance P.Monad (Either a) where
 
 functorTest1 = P.fmap (P.+ 1) (Right 2) -- sollte Right 3 geben
 functorTest2 = P.fmap (P.+ 1) (Left 2)  -- sollte Left 2 geben
-applicativeTest1 = P.pure (P.*) A.<*> (Right 2)   A.<*> (Right 2) -- Sollte Right 4 geben
-applicativeTest2 = P.pure (P.*) A.<*> (Left "ok") A.<*> (Right 2) -- Sollte Left "ok" geben
+applicativeTest1 = A.pure (P.*) A.<*> (Right 2)   A.<*> (Right 2) -- Sollte Right 4 geben
+applicativeTest2 = A.pure (P.*) A.<*> (Left "ok") A.<*> (Right 2) -- Sollte Left "ok" geben
 mFun1 = (\_ -> Right 3)
 mFun2 = (Right P.. (P.+ 3))
 mFun3 = (\_ -> Left "ok")
