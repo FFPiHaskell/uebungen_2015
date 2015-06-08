@@ -61,7 +61,7 @@ handleMessage client@Client{..} msg = error "TODO"
 -- Hilfsfunktion
 parseCommand :: String -> Either String Command
 parseCommand msg = case words msg of
-      ["job", rest]  -> Right (CJob rest)
+      ("job":rest)   -> Right (CJob (unwords rest))
       ["get", nr]    -> case (readMaybe nr) :: Maybe Int of
                              (Just num) -> Right (CGet num)
                              Nothing    -> Left  $ "  [ERROR] not an Int: " ++ nr
