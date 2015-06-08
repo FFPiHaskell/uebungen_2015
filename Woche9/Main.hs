@@ -2,12 +2,7 @@
 module Main where
 
 import Control.Concurrent
-import Control.Concurrent.STM
-import Control.Concurrent.Async
-import qualified Data.Map as Map
-import Data.Map (Map)
 import System.IO
-import Control.Exception
 import Network
 import Control.Monad
 import Text.Printf
@@ -37,8 +32,8 @@ main = withSocketsDo $ do
            sock <- listenOn (PortNumber (fromIntegral port))
            printf "Listening on port %d\n" port
            forever $ do
-               (handle, host, port) <- accept sock
-               printf "Accepted connection from %s: %s\n" host (show port)
+               (handle, host, port') <- accept sock
+               printf "Accepted connection from %s: %s\n" host (show port')
                nojobs <- newMVar []
                let newClient = Client handle nojobs
                forkFinally (runClient newClient) (\_ -> hClose handle)
